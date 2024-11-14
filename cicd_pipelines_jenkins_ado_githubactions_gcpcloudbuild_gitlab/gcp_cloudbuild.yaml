@@ -16,7 +16,7 @@ steps:
         pip install --upgrade pip
         pip install checkov
         checkov --version   
-        cd terraform_infra/
+        cd ./terraform_infra/
         checkov -d . --skip-check CKV_GCP_113,CKV_GCP_60,CKV_GCP_14,CKV2_GCP_20,CKV_GCP_6,CKV_GCP_79 --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1) 
 
 - id: 'tf init'
@@ -27,7 +27,7 @@ steps:
   - |
         if [ -d "$_PATH_TF"]; then
           echo "run init"
-          cd terraform_infra/
+          cd ./terraform_infra/
           terraform init -reconfigure
         else
           for dir in $_PATH_TF
@@ -46,7 +46,7 @@ steps:
   - '-c'
   - |
       if [ -d "$_PATH_TF"]; then      
-       cd terraform_infra/ 
+       cd ./terraform_infra/ 
        echo "run plan"
        terraform refresh
        terraform plan
@@ -68,7 +68,7 @@ steps:
   - '-c'
   - |
       if [ -d "$_PATH_TF" ]; then
-         cd terraform_infra/
+         cd ./terraform_infra/
          terraform $_TFACTION -auto-approve
       else
          echo "$BRANCH_NAME"
