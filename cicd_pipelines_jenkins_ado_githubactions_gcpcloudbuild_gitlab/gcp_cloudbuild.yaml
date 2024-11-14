@@ -25,7 +25,6 @@ steps:
   - '-c'
   - |
       ls
-        if [ -d "$_PATH_TF"]; then
           echo "run init"
           cd gcp-cloudrun-nodejs-mysql-terraform-infra/terraform_infra/
           terraform init -reconfigure
