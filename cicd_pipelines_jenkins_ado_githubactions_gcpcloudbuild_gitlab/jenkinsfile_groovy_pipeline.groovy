@@ -68,7 +68,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 sh '''
-                cd ./terraform_infra/
+                cd GCP-CloudRun-Nodejs-Mysql-infra
                     terraform refresh
                     terraform plan
                 '''
@@ -77,7 +77,7 @@ pipeline {
         stage('Terraform Apply or Destroy') {
             steps {
                 sh '''
-                cd ./terraform_infra/
+                cd GCP-CloudRun-Nodejs-Mysql-infra
                     terraform destroy -auto-approve
                 '''
             }
