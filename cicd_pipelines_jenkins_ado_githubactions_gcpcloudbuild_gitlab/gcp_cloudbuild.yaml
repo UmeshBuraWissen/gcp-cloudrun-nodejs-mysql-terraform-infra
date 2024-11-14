@@ -27,7 +27,6 @@ steps:
   - |
         if [ -d "$_PATH_TF"]; then
           echo "run init"
-        # cd GCP-CloudRun-Nodejs-Mysql-infra/
           cd terraform_infra/
           terraform init -reconfigure
         else
@@ -46,8 +45,7 @@ steps:
   args:
   - '-c'
   - |
-      if [ -d "$_PATH_TF"]; then
-      # cd GCP-CloudRun-Nodejs-Mysql-infra/      
+      if [ -d "$_PATH_TF"]; then      
         cd terraform_infra/ 
         echo "run plan"
         terraform refresh
@@ -70,7 +68,6 @@ steps:
   - '-c'
   - |
       if [ -d "$_PATH_TF" ]; then
-      # cd GCP-CloudRun-Nodejs-Mysql-infra/
          cd terraform_infra/
          terraform $_TFACTION -auto-approve
       else
