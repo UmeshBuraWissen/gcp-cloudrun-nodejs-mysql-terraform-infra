@@ -46,10 +46,10 @@ steps:
   - '-c'
   - |
       if [ -d "$_PATH_TF"]; then      
-        cd terraform_infra/ 
-        echo "run plan"
-        terraform refresh
-        terraform plan
+       cd terraform_infra/ 
+       echo "run plan"
+       terraform refresh
+       terraform plan
       else
         for dir in $_PATH_TF
         do
