@@ -51,7 +51,7 @@ pipeline {
                         which checkov  
                         ls
                         ls -l
-                        cd ./terraform_infra/
+                        cd GCP-CloudRun-Nodejs-Mysql-infra
                         checkov -d . --skip-check CKV_GCP_113,CKV_GCP_60,CKV_GCP_14,CKV2_GCP_20,CKV_GCP_6,CKV_GCP_79 --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)
                     '''
                 }
@@ -60,7 +60,7 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 sh '''
-                cd ./terraform_infra/
+                cd GCP-CloudRun-Nodejs-Mysql-infra
                     terraform init -reconfigure
                 '''
             }
