@@ -26,18 +26,8 @@ steps:
   - |
       ls
           echo "run init"
-          cd gcp-cloudrun-nodejs-mysql-terraform-infra/terraform_infra/
+          cd ./terraform_infra/
           terraform init -reconfigure
-        else
-          for dir in $_PATH_TF
-          do
-          cd ${dir}
-          env=${dir%*/}
-          env=${env#*/}
-          echo "${env}"
-          terraform init -reconfigure|| exit 1
-        done
-        fi
 - id: 'tf plan'
   name: "hashicorp/terraform:1.3.0"
   entrypoint: 'sh'
