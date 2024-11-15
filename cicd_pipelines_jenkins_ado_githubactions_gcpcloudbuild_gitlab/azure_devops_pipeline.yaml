@@ -31,7 +31,6 @@ stages:
       
     - script: |
         echo "Running Checkov security scan on Terraform files..."
-      # cd GCP-CloudRun-Nodejs-Mysql-infra/
         cd terraform_infra/
         checkov -d . --skip-check CKV_GCP_113,CKV_GCP_60,CKV_GCP_14,CKV2_GCP_20,CKV_GCP_6,CKV_GCP_79 --output json --output-file checkov_report.json --quiet || (echo "Checkov scan failed!" && exit 1)
       displayName: 'Run Checkov'
@@ -47,21 +46,18 @@ stages:
     
     - script: |
         echo "Initializing Terraform..."
-      # cd GCP-CloudRun-Nodejs-Mysql-infra/
-       cd terraform_infra/
+        cd terraform_infra/
         terraform init
       displayName: 'Terraform Init'
 
     - script: |
         echo "Running Terraform Plan..."
-      # cd GCP-CloudRun-Nodejs-Mysql-infra/
         cd terraform_infra/
         terraform plan -out=tfplan
       displayName: 'Terraform Plan'
 
     - script: |
          echo "Applying Terraform Apply..."
-        #cd GCP-CloudRun-Nodejs-Mysql-infra/
          cd terraform_infra/
          terraform apply -auto-approve tfplan 
       displayName: 'Terraform Apply'
