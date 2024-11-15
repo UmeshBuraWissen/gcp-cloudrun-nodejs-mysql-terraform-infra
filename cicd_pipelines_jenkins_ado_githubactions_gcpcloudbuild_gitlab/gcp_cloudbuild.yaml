@@ -46,7 +46,7 @@ steps:
   - |
           echo "run apply"
           cd ./terraform_infra/
-          terraform apply -auto-approve
+          terraform $_TFACTION -auto-approve
     
 #timeout = 6100s
 logsBucket: 'terraformbackendmysqlapplication'
