@@ -6,32 +6,32 @@ project_config = [
     enable_network = false
   }
 ]
-VPC_config = [
-  {
-    name                            = "wissen-nodejs-app-gcp-vpc"
-    auto_create_subnetworks         = "false"
-    routing_mode                    = "GLOBAL"
-    project                         = "gcp-cloudrun-nodejs-mysql-app"
-    description                     = "new vpc"
-    delete_default_routes_on_create = "false"
-    mtu                             = 0
-    subnet_name                     = "wissen-nodejs-app-gcp-subnetwork"
-    ip_cidr_range                   = "10.2.0.0/16"
-    region                          = "us-central1"
-    network                         = "wissen-nodejs-app-gcp-vpc"
-    secondary_ip_range = [{
-      range_name    = "tf-wissen-nodejs-app-gcp-secondary-range-update1"
-      ip_cidr_range = "192.168.64.0/24"
-    }]
-    allow = {
-      protocol = "tcp"
-      ports    = ["80"]
-    }
-    source_ranges = ["0.0.0.0/0"]
-    direction     = "INGRESS"
-    target_tags   = ["http-server"]
+# VPC_config = [
+#   {
+#     name                            = "wissen-nodejs-app-gcp-vpc"
+#     auto_create_subnetworks         = "false"
+#     routing_mode                    = "GLOBAL"
+#     project                         = "gcp-cloudrun-nodejs-mysql-app"
+#     description                     = "new vpc"
+#     delete_default_routes_on_create = "false"
+#     mtu                             = 0
+#     subnet_name                     = "wissen-nodejs-app-gcp-subnetwork"
+#     ip_cidr_range                   = "10.2.0.0/16"
+#     region                          = "us-central1"
+#     network                         = "wissen-nodejs-app-gcp-vpc"
+#     secondary_ip_range = [{
+#       range_name    = "tf-wissen-nodejs-app-gcp-secondary-range-update1"
+#       ip_cidr_range = "192.168.64.0/24"
+#     }]
+#     allow = {
+#       protocol = "tcp"
+#       ports    = ["80"]
+#     }
+#     source_ranges = ["0.0.0.0/0"]
+#     direction     = "INGRESS"
+#     target_tags   = ["http-server"]
 
-}]
+# }]
 # svc_config = [{
 #   project      = "gcp-cloudrun-nodejs-mysql-app"
 #   account_id   = "nodejs-app-gcp-service-account"

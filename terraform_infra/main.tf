@@ -7,30 +7,30 @@ module "project" {
   enable_network = each.value["enable_network"]
 }
 
-module "vpc" {
-  source                                 = "./modules/vpc"
-  for_each                               = { for i in var.VPC_config : i.name => i }
-  network_name                           = each.value["name"]
-  auto_create_subnetworks                = each.value["auto_create_subnetworks"]
-  routing_mode                           = each.value["routing_mode"]
-  project_id                             = each.value["project"]
-  description                            = each.value["description"]
-  delete_default_internet_gateway_routes = each.value["delete_default_routes_on_create"]
-  mtu                                    = each.value["mtu"]
-  subnet_name                            = each.value["name"]
-  ip_cidr_range                          = each.value["ip_cidr_range"]
-  region                                 = each.value["region"]
-  secondary_ip_range                     = each.value.secondary_ip_range
+# module "vpc" {
+#   source                                 = "./modules/vpc"
+#   for_each                               = { for i in var.VPC_config : i.name => i }
+#   network_name                           = each.value["name"]
+#   auto_create_subnetworks                = each.value["auto_create_subnetworks"]
+#   routing_mode                           = each.value["routing_mode"]
+#   project_id                             = each.value["project"]
+#   description                            = each.value["description"]
+#   delete_default_internet_gateway_routes = each.value["delete_default_routes_on_create"]
+#   mtu                                    = each.value["mtu"]
+#   subnet_name                            = each.value["name"]
+#   ip_cidr_range                          = each.value["ip_cidr_range"]
+#   region                                 = each.value["region"]
+#   secondary_ip_range                     = each.value.secondary_ip_range
 
-  firewall_name = each.value["name"]
-  allow = {
-    protocol = each.value.allow["protocol"]
-    ports    = each.value.allow["ports"]
-  }
-  source_ranges = each.value["source_ranges"]
-  direction     = each.value["direction"]
-  target_tags   = each.value["target_tags"]
-}
+#   firewall_name = each.value["name"]
+#   allow = {
+#     protocol = each.value.allow["protocol"]
+#     ports    = each.value.allow["ports"]
+#   }
+#   source_ranges = each.value["source_ranges"]
+#   direction     = each.value["direction"]
+#   target_tags   = each.value["target_tags"]
+# }
 
 
 # module "svc" {

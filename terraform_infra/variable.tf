@@ -1,9 +1,9 @@
 variable "project_config" {
 
 }
-variable "VPC_config" {
+# variable "VPC_config" {
 
-}
+# }
 # variable "svc_config" {
 
 # }
