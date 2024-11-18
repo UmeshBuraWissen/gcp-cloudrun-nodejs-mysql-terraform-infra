@@ -35,7 +35,11 @@ resource "google_cloud_run_service" "default" {
   }
   
   autogenerate_revision_name = var.autogenerate_revision_name
-  
+  # metadata {
+  #   labels = {
+  #     "revision-trigger" = timestamp() # This label forces a new revision to ensure the latest image is used
+  #   }
+  # }
 }
 data "google_iam_policy" "noauth" {
 

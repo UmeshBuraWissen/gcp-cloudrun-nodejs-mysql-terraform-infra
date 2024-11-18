@@ -49,6 +49,10 @@ registry_config = [
     format        = "DOCKER"
   }
 ]
+repository_id = "gcr.io" 
+image_name    = "nodejsapp:latest"
+project       = "gcp-cloudrun-nodejs-mysql-app"
+location      = "us"
 cloudrunsql_config = [
   {
     name       = "wissen-nodejs-app-gcp-cloudrun-mysql"
@@ -79,13 +83,16 @@ sql_config = [
   deletion_protection = false
   sql_user_name       = "nodejsuser"
   sql_user_pass       = "Wissen12345"
-  private-network-name                    = "wissen-nodejs-app-gcp-vpc"
+  #private-network-name                    = "private-network"
+   private-network-name                    = "wissen-nodejs-app-gcp-vpc"
   auto_create_subnetworks = false
-  private-ip-address-name          = "wissen-nodejs-app-gcp-private-ip-address"
+  #private-ip-address-name          = "private-ip-address"
+   private-ip-address-name          = "wissen-nodejs-app-gcp-private-ip-address"
   purpose       = "VPC_PEERING"
   address_type  = "INTERNAL"
   prefix_length = 16
   service                 = "servicenetworking.googleapis.com"
+  #firewall_name    = "deny-all-ingress"
   firewall_name    = "wissen-nodejs-app-gcp-deny-all-ingress"
   protocol = "all"
   direction = "INGRESS"

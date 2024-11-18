@@ -28,5 +28,5 @@ iii. Add the git credentails username and password in the jenkins credentials
 step 6: Infrastructe provisiong using terraform is depolyed using GithubActions and application deployment of nodejs is deployed using GithubActions
 i. Add the serviceaccount(serviceconnectionsrv) json key file content in secret variable name as "GCP_SA_KEY"
 
-step 6: Infrastructe provisiong using terraform is depolyed using GitLab and application deployment of nodejs is deployed using GitLab
+step 7: Infrastructe provisiong using terraform is depolyed using GitLab and application deployment of nodejs is deployed using GitLab
 i. Add the serviceaccount(serviceconnectionsrv) json key file content in secret variable name as "GCP_SA_KEY"

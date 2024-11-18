@@ -47,7 +47,7 @@ gcp_auth:
   script:
     - echo "Authenticating to Google Cloud..."
     - echo "$GCP_SA_KEY" | gcloud auth activate-service-account --key-file=-
-    - gcloud config set project "gcp-cloudrun-nodejs-mysql-app"  
+    - gcloud config set project "gcp-cloudrun-nodejs-mysql-app"  # Replace with your project ID
 
 terraform_init:
   stage: terraform_init
@@ -74,4 +74,4 @@ terraform_apply:
     - terraform apply -auto-approve
 
   only:
-    - master 
+    - master  # Runs on pushes to the main branch

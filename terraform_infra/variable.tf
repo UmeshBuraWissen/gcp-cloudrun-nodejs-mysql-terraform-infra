@@ -28,3 +28,15 @@ variable "vpc_connector_config" {
 variable "domainmapping_config" {
   
 }
+variable "repository_id" {
+  
+}
+variable "image_name" {
+  
+}
+variable "project" {
+  
+}
+variable "location" {
+  
+}

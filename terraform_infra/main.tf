@@ -7,6 +7,7 @@ module "project" {
   enable_network = each.value["enable_network"]
 }
 
+# Previously we were using Public IP for MYSQL Instance but now we are using Private IP for MYSQL Instance, so creating inside SQL MAIN.TF file
 # module "vpc" {
 #   source                                 = "./modules/vpc"
 #   for_each                               = { for i in var.VPC_config : i.name => i }
@@ -55,6 +56,22 @@ module "project" {
   description   = each.value["description"]
   format        = each.value["format"]
 } */
+
+#data
+data "google_artifact_registry_docker_image" "my_image" {
+  location      = data.google_artifact_registry_repository.my-repo.location
+  repository_id = var.repository_id
+  image_name    = var.image_name
+  project       = var.project
+
+}
+
+data "google_artifact_registry_repository" "my-repo" {
+  location      = var.location   
+  repository_id = var.repository_id
+  project       = var.project
+}
+
 module "cloudRun" {
   source     = "./modules/cloudrun"
   for_each   = { for i in var.cloudrunsql_config : i.name => i }
@@ -65,7 +82,7 @@ module "cloudRun" {
   template = {
     spec = {
       containers = {
-        image = each.value["image"]
+        image = data.google_artifact_registry_docker_image.my_image.self_link
       }
     }
   }
@@ -79,39 +96,39 @@ module "cloudRun" {
   autogenerate_revision_name = each.value["autogenerate_revision_name"]
   timeout_seconds            = each.value["timeout_seconds"]
   service_account_name       = each.value["service_account_name"]
-depends_on = [ module.cloudSql ]
+  depends_on                 = [module.cloudSql]
 
 }
 module "cloudSql" {
-  source           = "./modules/sql"
-  for_each         = { for i in var.sql_config : i.sql_name => i }
-  location         = each.value["location"]
-  project_id       = each.value["project_id"]
-  sql_name         = each.value["sql_name"]
-  database_version = each.value["database_version"]
-  tier = each.value["tier"]
-  enabled            = each.value["enabled"]
-  binary_log_enabled = each.value["binary_log_enabled"]
-  ipv4_enabled    = each.value["ipv4_enabled"]
-  ssl_mode = each.value["ssl_mode"]
-  require_ssl = each.value["require_ssl"]
-  deletion_protection = each.value["deletion_protection"]
-  sql_user_name       = each.value["sql_user_name"]
-  sql_user_pass       = each.value["sql_user_pass"]
-    private-network-name                    = each.value["private-network-name"]
+  source                  = "./modules/sql"
+  for_each                = { for i in var.sql_config : i.sql_name => i }
+  location                = each.value["location"]
+  project_id              = each.value["project_id"]
+  sql_name                = each.value["sql_name"]
+  database_version        = each.value["database_version"]
+  tier                    = each.value["tier"]
+  enabled                 = each.value["enabled"]
+  binary_log_enabled      = each.value["binary_log_enabled"]
+  ipv4_enabled            = each.value["ipv4_enabled"]
+  ssl_mode                = each.value["ssl_mode"]
+  require_ssl             = each.value["require_ssl"]
+  deletion_protection     = each.value["deletion_protection"]
+  sql_user_name           = each.value["sql_user_name"]
+  sql_user_pass           = each.value["sql_user_pass"]
+  private-network-name    = each.value["private-network-name"]
   auto_create_subnetworks = each.value["auto_create_subnetworks"]
   private-ip-address-name = each.value["private-ip-address-name"]
-  purpose = each.value["purpose"]
-  address_type = each.value["address_type"]
-  prefix_length = each.value["prefix_length"]
-  service = each.value["service"]
-  firewall_name = each.value["firewall_name"]
-  protocol = each.value["protocol"]
-  direction = each.value["direction"]
-  priority  = each.value["priority"]
-  source_ranges = each.value["source_ranges"]
-  import_custom_routes = each.value["import_custom_routes"]
-  export_custom_routes = each.value["export_custom_routes"]
+  purpose                 = each.value["purpose"]
+  address_type            = each.value["address_type"]
+  prefix_length           = each.value["prefix_length"]
+  service                 = each.value["service"]
+  firewall_name           = each.value["firewall_name"]
+  protocol                = each.value["protocol"]
+  direction               = each.value["direction"]
+  priority                = each.value["priority"]
+  source_ranges           = each.value["source_ranges"]
+  import_custom_routes    = each.value["import_custom_routes"]
+  export_custom_routes    = each.value["export_custom_routes"]
 }
 
 module "secret-manager" {

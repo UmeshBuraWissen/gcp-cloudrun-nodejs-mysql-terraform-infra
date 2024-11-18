@@ -52,7 +52,7 @@ resource "google_sql_database_instance" "instance" {
       ipv4_enabled    = var.ipv4_enabled
       private_network = google_compute_network.peering_network.id
       ssl_mode = var.ssl_mode
-      require_ssl = var.require_ssl
+      # require_ssl = var.require_ssl
     }
 
   }
