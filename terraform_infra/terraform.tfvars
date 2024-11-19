@@ -49,18 +49,18 @@ registry_config = [
     format        = "DOCKER"
   }
 ]
-repository_id = "gcr.io" 
+repository_id = "gcr.io"
 image_name    = "nodejsapp:latest"
 project       = "gcp-cloudrun-nodejs-mysql-app"
 location      = "us"
 cloudrunsql_config = [
   {
-    name       = "wissen-nodejs-app-gcp-cloudrun-mysql"
-    location   = "us-central1"
-    project_id = "gcp-cloudrun-nodejs-mysql-app"
-    image      = "gcr.io/gcp-cloudrun-nodejs-mysql-app/nodejsapp:latest"
-    maxScale   = "10"
-    sql_name   = "wissen-nodejs-app-gcp-mysql"
+    name                       = "wissen-nodejs-app-gcp-cloudrun-mysql"
+    location                   = "us-central1"
+    project_id                 = "gcp-cloudrun-nodejs-mysql-app"
+    image                      = "gcr.io/gcp-cloudrun-nodejs-mysql-app/nodejsapp:latest"
+    maxScale                   = "10"
+    sql_name                   = "wissen-nodejs-app-gcp-mysql"
     client-name                = "terraform"
     autogenerate_revision_name = true
     timeout_seconds            = 6000
@@ -76,37 +76,37 @@ cloudrunsql_config = [
 ]
 sql_config = [
   {
-  location            = "us-central1"
-  project_id          = "gcp-cloudrun-nodejs-mysql-app"
-  sql_name            = "wissen-nodejs-app-gcp-mysql"
-  database_version    = "MYSQL_8_0"
-  deletion_protection = false
-  sql_user_name       = "nodejsuser"
-  sql_user_pass       = "Wissen12345"
-  #private-network-name                    = "private-network"
-   private-network-name                    = "wissen-nodejs-app-gcp-vpc"
-  auto_create_subnetworks = false
-  #private-ip-address-name          = "private-ip-address"
-   private-ip-address-name          = "wissen-nodejs-app-gcp-private-ip-address"
-  purpose       = "VPC_PEERING"
-  address_type  = "INTERNAL"
-  prefix_length = 16
-  service                 = "servicenetworking.googleapis.com"
-  #firewall_name    = "deny-all-ingress"
-  firewall_name    = "wissen-nodejs-app-gcp-deny-all-ingress"
-  protocol = "all"
-  direction = "INGRESS"
-  priority  = 1000  
-  source_ranges = ["0.0.0.0/0"]
-  tier                = "db-f1-micro"
-  enabled            = true
-  binary_log_enabled = true
-  ipv4_enabled    = false
-  ssl_mode = "TRUSTED_CLIENT_CERTIFICATE_REQUIRED"
-  require_ssl = true
-  import_custom_routes = true
-  export_custom_routes = true
- }
+    location            = "us-central1"
+    project_id          = "gcp-cloudrun-nodejs-mysql-app"
+    sql_name            = "wissen-nodejs-app-gcp-mysql"
+    database_version    = "MYSQL_8_0"
+    deletion_protection = false
+    sql_user_name       = "nodejsuser"
+    sql_user_pass       = "Wissen12345"
+    #private-network-name                    = "private-network"
+    private-network-name    = "wissen-nodejs-app-gcp-vpc"
+    auto_create_subnetworks = false
+    #private-ip-address-name          = "private-ip-address"
+    private-ip-address-name = "wissen-nodejs-app-gcp-private-ip-address"
+    purpose                 = "VPC_PEERING"
+    address_type            = "INTERNAL"
+    prefix_length           = 16
+    service                 = "servicenetworking.googleapis.com"
+    #firewall_name    = "deny-all-ingress"
+    firewall_name        = "wissen-nodejs-app-gcp-deny-all-ingress"
+    protocol             = "all"
+    direction            = "INGRESS"
+    priority             = 1000
+    source_ranges        = ["0.0.0.0/0"]
+    tier                 = "db-f1-micro"
+    enabled              = true
+    binary_log_enabled   = true
+    ipv4_enabled         = false
+    ssl_mode             = "TRUSTED_CLIENT_CERTIFICATE_REQUIRED"
+    require_ssl          = true
+    import_custom_routes = true
+    export_custom_routes = true
+  }
 ]
 secret_config = [{
   secret_id = "secret"
@@ -118,20 +118,36 @@ secret_config = [{
 
 vpc_connector_config = [
   {
-  project_id    =  "gcp-cloudrun-nodejs-mysql-app"
-  region        = "us-east1"
-  name          = "wissen-nodejs-app-gcp-vpc-connector"
-  network       = "wissen-nodejs-app-gcp-vpc" 
-  ip_cidr_range = "10.8.0.0/28"
+    project_id    = "gcp-cloudrun-nodejs-mysql-app"
+    region        = "us-east1"
+    name          = "wissen-nodejs-app-gcp-vpc-connector"
+    network       = "wissen-nodejs-app-gcp-vpc"
+    ip_cidr_range = "10.8.0.0/28"
   }
 ]
 
 domainmapping_config = [
   {
-    project_id    =  "gcp-cloudrun-nodejs-mysql-app"
-    location  = "us-east1"
-    name = "www.wissencloudrun.com"
-    route_name = "wissen-nodejs-app-gcp-cloudrun-mysql"
+    project_id         = "gcp-cloudrun-nodejs-mysql-app"
+    location           = "us-east1"
+    name               = "www.wissencloudrun.com"
+    route_name         = "wissen-nodejs-app-gcp-cloudrun-mysql"
     metadata_namespace = "gcp-cloudrun-nodejs-mysql-app"
+  }
+]
+build_config = [
+  {
+  name = "trigger-using-terraform"
+  project  = "gcp-cloudrun-nodejs-mysql-app"
+  disabled = false
+    # uri = "https://github.com/UmeshBuraWissen/gcp-cloudrun-nodejs-mysql-terraform-infra.git"
+    path = "../cicd_pipelines_jenkins_ado_githubactions_gcpcloudbuild_gitlab/gcp_cloudbuild.yaml"
+    # repo_type = "GITHUB"
+    # revision  = "refs/heads/main"
+    owner = "UmeshBuraWissen"
+    github_reponame  = "gcp-cloudrun-nodejs-mysql-terraform-infra"
+      branch       = "^main$"
+      invert_regex = false
+ service_account = "nodejsdemo@gcp-cloudrun-nodejs-mysql-app.iam.gserviceaccount.com"
   }
 ]

@@ -67,7 +67,7 @@ data "google_artifact_registry_docker_image" "my_image" {
 }
 
 data "google_artifact_registry_repository" "my-repo" {
-  location      = var.location   
+  location      = var.location
   repository_id = var.repository_id
   project       = var.project
 }
@@ -160,3 +160,22 @@ module "secret-manager" {
   route_name = each.value["route_name"]
   metadata_namespace = each.value["metadata_namespace"]
 } */
+module "cloud-build-trigger" {
+  source = "./modules/cloud-build-trigger"
+  for_each = { for i in var.build_config : i.name => i }
+    name = each.value["name"]
+  #   location = "global"
+  project  = each.value["project"]
+  disabled = each.value["disabled"]
+    # uri = each.value["uri"]
+    path = each.value["path"]
+    # repo_type = each.value["repo_type"]
+    # revision  = each.value["revision"]
+    owner = each.value["owner"]
+    github_reponame  = each.value["github_reponame"]
+      branch       = each.value["branch"]
+      invert_regex = each.value["invert_regex"]
+
+  service_account = each.value["service_account"]
+}
+
