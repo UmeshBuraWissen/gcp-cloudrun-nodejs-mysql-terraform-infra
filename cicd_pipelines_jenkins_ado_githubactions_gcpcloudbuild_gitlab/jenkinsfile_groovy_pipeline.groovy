@@ -60,7 +60,7 @@ pipeline {
             steps {
                 sh '''
                     cd terraform_infra
-                    terraform init -reconfigure
+                    terraform init -upgrade
                 '''
             }
         }
