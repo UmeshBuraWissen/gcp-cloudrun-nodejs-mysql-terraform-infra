@@ -32,7 +32,8 @@ steps:
   entrypoint: 'sh'
   args:
   - '-c'
-  - |
+  - |   
+        cd terraform_infra/
         terraform plan
 - id: 'tf apply or destroy'
   name: "hashicorp/terraform:1.3.0"
