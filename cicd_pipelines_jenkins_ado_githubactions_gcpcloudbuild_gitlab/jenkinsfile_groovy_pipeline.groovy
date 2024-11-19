@@ -78,7 +78,7 @@ pipeline {
             steps {
                 sh '''
                     cd terraform_infra
-                    terraform destroy -auto-approve
+                    terraform apply -auto-approve
                 '''
             }
         }
