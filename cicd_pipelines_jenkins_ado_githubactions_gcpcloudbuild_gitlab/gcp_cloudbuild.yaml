@@ -25,55 +25,23 @@ steps:
   args:
   - '-c'
   - |
-        if [ -d "$_PATH_TF"]; then
-          echo "run init"
           cd terraform_infra/
           terraform init -reconfigure
-        else
-          for dir in $_PATH_TF
-          do
-          cd ${dir}
-          env=${dir%*/}
-          env=${env#*/}
-          echo "${env}"
-          terraform init -reconfigure|| exit 1
-        done
-        fi
 - id: 'tf plan'
   name: "hashicorp/terraform:1.3.0"
   entrypoint: 'sh'
   args:
   - '-c'
   - |
-      if [ -d "$_PATH_TF"]; then
-        cd terraform_infra/       
-        echo "run plan"
-        terraform refresh
         terraform plan
-      else
-        for dir in $_PATH_TF
-        do
-          cd ${dir}
-          env=${dir%*/}
-          env=${env#*/}
-          echo "${env}"
-          terraform plan || exit 1
-        done
-      fi
-
 - id: 'tf apply or destroy'
   name: "hashicorp/terraform:1.3.0"
   entrypoint: 'sh'
   args:
   - '-c'
   - |
-      if [ -d "$_PATH_TF" ]; then
          cd terraform_infra/
          terraform $_TFACTION -auto-approve
-      else
-         echo "$BRANCH_NAME"
-      fi
-    
 #timeout = 6100s
 logsBucket: 'terraformbackendmysqlapplication'
 options:
