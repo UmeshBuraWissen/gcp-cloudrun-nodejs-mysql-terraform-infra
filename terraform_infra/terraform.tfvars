@@ -139,7 +139,7 @@ build_config = [
   {
   name = "gcp-cloudrun-nodejs-mysql-terraform-infra-autocreate"
   project  = "gcp-cloudrun-nodejs-mysql-app"
-  disabled = true
+  disabled = false
     # uri = "https://github.com/UmeshBuraWissen/gcp-cloudrun-nodejs-mysql-terraform-infra.git"
     path = "cicd_pipelines_jenkins_ado_githubactions_gcpcloudbuild_gitlab/gcp_cloudbuild.yaml"
     # repo_type = "GITHUB"
