@@ -137,7 +137,7 @@ domainmapping_config = [
 ]
 build_config = [
   {
-  name = "trigger-using-terraform"
+  name = "gcp-cloudrun-nodejs-mysql-terraform-infra-autocreate"
   project  = "gcp-cloudrun-nodejs-mysql-app"
   disabled = true
     # uri = "https://github.com/UmeshBuraWissen/gcp-cloudrun-nodejs-mysql-terraform-infra.git"
