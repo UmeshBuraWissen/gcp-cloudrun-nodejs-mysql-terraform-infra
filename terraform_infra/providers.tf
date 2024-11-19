@@ -5,7 +5,7 @@ provider "google" {
 terraform {
   required_providers {
     google = {
-      version = "> 6.11.2"
+      version = "> 5.34.0"
     }
     google-beta = {
       version = "6.4.0"
