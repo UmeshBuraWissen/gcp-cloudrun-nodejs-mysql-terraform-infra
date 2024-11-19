@@ -139,9 +139,9 @@ build_config = [
   {
   name = "trigger-using-terraform"
   project  = "gcp-cloudrun-nodejs-mysql-app"
-  disabled = false
+  disabled = true
     # uri = "https://github.com/UmeshBuraWissen/gcp-cloudrun-nodejs-mysql-terraform-infra.git"
-    path = "../cicd_pipelines_jenkins_ado_githubactions_gcpcloudbuild_gitlab/gcp_cloudbuild.yaml"
+    path = "cicd_pipelines_jenkins_ado_githubactions_gcpcloudbuild_gitlab/gcp_cloudbuild.yaml"
     # repo_type = "GITHUB"
     # revision  = "refs/heads/main"
     owner = "UmeshBuraWissen"
